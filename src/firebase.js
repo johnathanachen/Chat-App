@@ -1,11 +1,12 @@
 import firebase from 'firebase';
 
 const config = {
-  apiKey: 'AIzaSyAhWMYWhBG2UvsNMZ-qVLbaqVZ5aTzwsNU',
-  authDomain: 'hot-takes.firebaseapp.com',
-  databaseURL: 'https://hot-takes.firebaseio.com',
-  storageBucket: 'hot-takes.appspot.com',
-  messagingSenderId: '823384132241'
+  apiKey: "AIzaSyBhtVo8PSMA22xPkrNzlQelFYaMgH7dS5o",
+  authDomain: "chatapp-practice.firebaseapp.com",
+  databaseURL: "https://chatapp-practice.firebaseio.com",
+  projectId: "chatapp-practice",
+  storageBucket: "chatapp-practice.appspot.com",
+  messagingSenderId: "276630217040"
 };
 
 firebase.initializeApp(config);

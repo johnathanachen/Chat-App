@@ -1,3 +1,5 @@
+import { database } from '../firebase';
+
 export const addMessage = (key = Date.now(), { content, uid }) => {
   return {
     type: 'ADD_MESSAGE',

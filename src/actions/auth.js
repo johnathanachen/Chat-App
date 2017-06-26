@@ -1,22 +1,19 @@
-import { auth, googleAuthProvider } from '../firebase';
+import { auth, database, googleAuthProvider } from '../firebase';
+import pick from 'lodash/pick';
+
+const usersRef = database.ref('users');
 
 export const signIn = () => {
   return (dispatch) => { 
     dispatch({ type: 'ATTEMPTING_LOGIN' });
-      auth.signInWithPopup(googleAuthProvider).then(({ user }) => {
-        dispatch(signedIn(user));
-      });
+      auth.signInWithPopup(googleAuthProvider);
   };
 };
 
 export const signOut = () => {
   return (dispatch) => { 
     dispatch({ type: 'ATTEMPTING_LOGIN' });
-    setTimeout(() => {
-      auth.signOut().then(() => {
-        dispatch(signedOut());
-     });
-    }, 1000);
+      auth.signOut();
   };
 };
 
@@ -33,5 +30,18 @@ const signedIn = (user) => {
 const signedOut = () => {
   return {
     type: 'SIGN_OUT'
+  };
+};
+
+export const startListeningToAuthChanges = () => {
+  return (dispatch) => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        dispatch(signedIn(user));
+        usersRef.child(user.uid).set(pick(user, ['displayName', 'photoURL', 'email', 'uid' ]));
+      } else {
+        dispatch(signedOut());
+      }
+    });
   };
 };
